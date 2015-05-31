@@ -1,0 +1,5 @@
+c:\users\priel\documents\visual studio 2010\Projects\GilPokerProbability\GilPokerProbability\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\priel\documents\visual studio 2010\Projects\GilPokerProbability\GilPokerProbability\bin\Debug\GilPokerProbability.exe
+c:\users\priel\documents\visual studio 2010\Projects\GilPokerProbability\GilPokerProbability\bin\Debug\GilPokerProbability.pdb
+c:\users\priel\documents\visual studio 2010\Projects\GilPokerProbability\GilPokerProbability\obj\x86\Debug\GilPokerProbability.exe
+c:\users\priel\documents\visual studio 2010\Projects\GilPokerProbability\GilPokerProbability\obj\x86\Debug\GilPokerProbability.pdb
