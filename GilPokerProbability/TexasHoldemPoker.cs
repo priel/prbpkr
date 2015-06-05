@@ -62,13 +62,10 @@ namespace GilPokerProbability
             Card[] finalCards = new Card[7];
             // get 7 card sorted array.
             finalCards = cardsOnTable.Cards.Concat(hand.Cards).OrderBy(card => card.CardNumber).ToArray();
-            //for (int i = 0; i < 7; i++)
-            //    Console.Write(finalCards[i].ToString());
             result = Scores.ValueHand7cards(finalCards);
             result.show();
             improvedResult = Scores.ImprovedEval7Cards(finalCards);
             improvedResult.show();
-            Console.ReadKey();
 
         }
         public void StartHelperGame()
@@ -81,6 +78,10 @@ namespace GilPokerProbability
 
         }
         public void StartComputerAgentGame()
+        {
+
+        }
+        public void Start1v1ArenaGame()
         {
 
         }

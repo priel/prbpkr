@@ -26,8 +26,8 @@ namespace GilPokerProbability
                 Console.Clear();
                 var game = new TexasHoldemPoker();
                 game.StartDebugGame();
-                consoleKeyInfo = Console.ReadKey();
-            } while (consoleKeyInfo.Key != ConsoleKey.Escape);
+                //consoleKeyInfo = Console.ReadKey();
+            } while (true);
         }
 
     }

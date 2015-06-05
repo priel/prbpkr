@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="PokerObjects\Cards.cs" />
     <Compile Include="PokerObjects\Deck.cs" />
+    <Compile Include="PokerObjects\Player.cs" />
+    <Compile Include="PokerObjects\Table.cs" />
     <Compile Include="Scores\Evaluator.cs" />
     <Compile Include="PokerObjects\Hand.cs" />
     <Compile Include="Scores\HandStrength.cs" />
