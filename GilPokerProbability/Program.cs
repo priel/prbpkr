@@ -19,14 +19,29 @@ namespace GilPokerProbability
         {
 
             ConsoleKeyInfo consoleKeyInfo;
-
-
+            //Console.WriteLine("Wellcome to Pio Poker");
+            //Console.WriteLine("There are 3 types of games");
+            //Console.WriteLine("1. helper\n 2. debug\n 3. 1v1");
+            //Console.WriteLine("Please insert your type of game (1,2 or 3)");
+            //int gameType = ModifiedConsole.GetInteger();
+            int gameType = 3;
             do
             {
                 Console.Clear();
                 var game = new TexasHoldemPoker();
-                game.StartDebugGame();
-                //consoleKeyInfo = Console.ReadKey();
+                switch (gameType)
+                {
+                    case 1:
+                        game.StartHelperGame();
+                        break;
+                    case 2:
+                        game.StartDebugGame();
+                        break;
+                    case 3:
+                        game.Start1v1ArenaGame();
+                        break;
+                }
+                consoleKeyInfo = Console.ReadKey();
             } while (true);
         }
 

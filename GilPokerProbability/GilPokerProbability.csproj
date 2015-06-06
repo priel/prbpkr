@@ -43,9 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModifiedConsole.cs" />
     <Compile Include="PokerObjects\Cards.cs" />
+    <Compile Include="PokerObjects\ComPlayer.cs" />
     <Compile Include="PokerObjects\Deck.cs" />
     <Compile Include="PokerObjects\Player.cs" />
+    <Compile Include="PokerObjects\PlayerDecision.cs" />
+    <Compile Include="PokerObjects\PokerAgent.cs" />
     <Compile Include="PokerObjects\Table.cs" />
     <Compile Include="Scores\Evaluator.cs" />
     <Compile Include="PokerObjects\Hand.cs" />
