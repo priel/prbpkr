@@ -128,9 +128,18 @@ namespace GilPokerProbability.PokerObjects
         public void AwardTheWinners()
         {
             List<int> winners = new List<int>();
-            uint maxHandValue = players.Max(player => player.DeterminsticValueHand().value);
+            uint maxHandValue = 0;
+            foreach (Player player in players)
+            {
+                if (!player.isPlaying)
+                    continue;
+                if (player.DeterminsticValueHand().value>maxHandValue)
+                    maxHandValue = player.DeterminsticValueHand().value;
+            }
             for (int i = 0; i < players.Count; i++)
             {
+                if (!players[i].isPlaying)
+                    continue;
                 if (maxHandValue == players[i].DeterminsticValueHand().value)
                     winners.Add(i);
             }

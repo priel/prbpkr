@@ -43,23 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent\ProfileManager.cs" />
     <Compile Include="ModifiedConsole.cs" />
     <Compile Include="PokerObjects\Cards.cs" />
     <Compile Include="PokerObjects\ComPlayer.cs" />
     <Compile Include="PokerObjects\Deck.cs" />
     <Compile Include="PokerObjects\Player.cs" />
     <Compile Include="PokerObjects\PlayerDecision.cs" />
-    <Compile Include="PokerObjects\PokerAgent.cs" />
+    <Compile Include="Agent\PokerAgent.cs" />
     <Compile Include="PokerObjects\Table.cs" />
     <Compile Include="Scores\Evaluator.cs" />
     <Compile Include="PokerObjects\Hand.cs" />
     <Compile Include="Scores\HandStrength.cs" />
-    <Compile Include="Probabilities.cs" />
+    <Compile Include="Agent\Probabilities.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scores\Scores.cs" />
     <Compile Include="Scores\Strength.cs" />
-    <Compile Include="TexasHoldemPoker.cs" />
+    <Compile Include="PokerObjects\TexasHoldemPoker.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GilPokerProbability.PokerObjects
+namespace GilPokerProbability.Agent
 {
-    class PokerAgent
+    class ProfileManager
     {
-
     }
 }

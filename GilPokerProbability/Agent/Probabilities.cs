@@ -17,30 +17,30 @@ namespace GilPokerProbability
     public class Probabilities
     {
         double[] probabilityForStrength = new double[9];
-        public List<uint>[] possibleRankValues = new List<uint>[2];
+        public List<uint> possibleRankValues = new List<uint>();
         double[][] preFlopDb = new double[169][];
 
-
-        public Probabilities()
+        public double GetPreFlopProb(Hand hand,int numOfParticipant)
         {
-            possibleRankValues[0] = new List<uint>();
-            possibleRankValues[1] = new List<uint>();
+            int highCard = Math.Max((int)hand.Cards[0].CardNumber, (int)hand.Cards[1].CardNumber);
+            int lowCard = Math.Min((int)hand.Cards[0].CardNumber, (int)hand.Cards[1].CardNumber);
+            int isSameColour = hand.Cards[0].CardSuit == hand.Cards[1].CardSuit ? 1 : 0;
+            int n = 14 - highCard;
+            int entry = 26 * n - n * n + 2 * (highCard - lowCard) - isSameColour;
+            return preFlopDb[entry][numOfParticipant-2];
         }
+
 
         public void ShowPreFlop(Hand hand)
         {
-            int highCard = Math.Max((int)hand.Cards[0].CardNumber,(int)hand.Cards[1].CardNumber);
-            int lowCard  = Math.Min((int)hand.Cards[0].CardNumber,(int)hand.Cards[1].CardNumber);
-            int isSameColour = hand.Cards[0].CardSuit==hand.Cards[1].CardSuit?1:0;
-            int n = 14 - highCard;
-            int entry = 26 * n - n * n + 2 * (highCard - lowCard) - isSameColour;
-            Console.WriteLine("your chances to win againts multiple players (not including you) are:");
-            for (int i = 0; i < 9; i++)
+            for (int i = 2; i < 9; i++)
             {
-                Console.Write((i + 1) + ": " + preFlopDb[entry][i]);
+                Console.Write((i - 1) + ": " + GetPreFlopProb(hand,i));
                 Console.WriteLine();
             }
         }
+
+        
 
         public void InitPreFlopDB()
         {
@@ -49,6 +49,22 @@ namespace GilPokerProbability
             System.IO.StreamReader file = new System.IO.StreamReader(
                 @"C:\Users\priel\Documents\Visual Studio 2010\Projects\GilPokerProbability\GilPokerProbability\Scores\pokerPreFlopProb.xml");
             preFlopDb = (double[][])reader.Deserialize(file);
+        }
+
+        public double GetAfterFlopProb(Probabilities opProb)
+        {
+            int optionsForComparision = possibleRankValues.Count * opProb.possibleRankValues.Count;
+            double winnerCounter = 0; //to keep the fraction in double.
+            //i iter on my possiblities, j iter on op poss.
+            for (int i = 0, j = 0; (i < possibleRankValues.Count);i++ )
+            {
+                while ((j < opProb.possibleRankValues.Count) && (possibleRankValues[i] > opProb.possibleRankValues[j]))
+                {
+                    j++;
+                }
+                winnerCounter += j;
+            }
+            return winnerCounter / optionsForComparision;
         }
 
         //public setProbabilities(Card[] tableCards, Card[] myHandCards)
@@ -64,7 +80,7 @@ namespace GilPokerProbability
         //        totalPossibilitiesChecked++;
         //        //for debug only, it should return the number of possibilities.
         //        //which is (#deck choose #opencards)
- 
+
         //        for (int i = 0; i < numOpenCards; i++)
         //            toCreate[i] = deck.Cards[indexes[i]];
 
@@ -106,10 +122,10 @@ namespace GilPokerProbability
 
 
 
-        public Probabilities GetProbabilities(Deck deck, Hand playerHand, Hand tableHand)
+        public Probabilities GetProbabilities(List<Card> cardsOnDeck, Hand playerHand, Hand tableHand)
         {
             int j;
-            int cardsInDeck = deck.Cards.Count;
+            int cardsInDeck = cardsOnDeck.Count;
             int texasCardsOpen = 7;
             int totalPossibilitiesChecked =0;
             int numShownCards = playerHand.Cards.Count + tableHand.Cards.Count;
@@ -136,7 +152,7 @@ namespace GilPokerProbability
                 //which is (#deck choose #opencards)
  
                 for (int i = 0; i < numOpenCards; i++)
-                    toCreate[i] = deck.Cards[indexes[i]];
+                    toCreate[i] = cardsOnDeck[indexes[i]];
 
                 Array.Copy(allShown, cardsToCheck, numShownCards);
                 Array.Copy(toCreate, 0, cardsToCheck, allShown.Length, toCreate.Length);
@@ -148,8 +164,9 @@ namespace GilPokerProbability
                 //Console.WriteLine("My array: {0}",string.Join(", ", cardsToCheck.Select(v => v.ToString())));
                 //cardsToCheck = cardsToCheck.OrderBy(card => card.CardNumber).ToArray();
                 //array.OrderBy(item => item.Fields["FieldName"].Value);
-                currStrength = Scores.ValueHand7cards(cardsToCheck);
-                countStrengths[(int)currStrength.rank.strength]++;
+                currStrength = Scores.ImprovedEval7Cards(cardsToCheck);
+                //countStrengths[(int)currStrength.rank.strength]++;
+                possibleRankValues.Add(currStrength.value);
 
 
                 //check limits
@@ -172,11 +189,11 @@ namespace GilPokerProbability
                     j--;
                 }
             }
-            Console.WriteLine(totalPossibilitiesChecked);
+            //Console.WriteLine(totalPossibilitiesChecked);
 
             for (int i = 0; i < 9; i++)
                 probabilityForStrength[i] = (double)countStrengths[i] / totalPossibilitiesChecked;
-            
+            possibleRankValues.Sort();
             return this;
             
         }
